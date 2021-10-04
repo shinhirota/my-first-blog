@@ -1,6 +1,8 @@
 from django.urls import path
+from django.shortcuts import redirect
 from . import views
 
 urlpatterns = [
-    path('', views.upload, name='upload'),
+    path('', lambda request: redirect('upload/', permanent=False)),
+    path('upload/', views.upload, name='upload'),
 ]
