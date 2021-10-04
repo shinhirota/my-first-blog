@@ -1,11 +1,40 @@
 {% extends 'dicom/base.html' %}
 
 {% block content %}
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+
+    <form id="ajax_upload" method="POST" enctype="multipart/form-data" action="{% url 'ajax_upload' %}">
         {{ form.as_p }}
         <button type="submit" class="save btn btn-default">Upload</button>
     </form>
-  </form>
+
+    <p>Result:</p>
+
+    <div class="result"> </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+        $('#ajax_upload').on('submit', function(e) {
+            e.preventDefault();
+
+            var formdata = new FormData($('#ajax_upload').get(0));
+
+            $.ajax({
+                'url': '{% url "ajax_upload" %}',
+                'type': 'POST',
+                'cache'       : false,
+                'contentType' : false,
+                'processData' : false,
+                'data': formdata,
+                'dataType': 'json'
+            })
+            .done(function(response) {
+                var str = JSON.stringify(response);
+
+                $('.result').prepend('<p>' + str + '</p>');
+            });
+        });
+
+    </script>
 
 {% endblock %}
