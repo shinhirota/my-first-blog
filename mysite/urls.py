@@ -22,5 +22,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('calc/', include('calc.urls')),
     path('blog/', include('blog.urls')),
+    path('dicom/', include('dicom.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 ##] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
