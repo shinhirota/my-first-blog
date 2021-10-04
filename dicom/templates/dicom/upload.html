@@ -29,9 +29,9 @@
                 'dataType': 'json'
             })
             .done(function(response) {
-                var str = JSON.stringify(response);
+                var str = JSON.stringify(response, null, 2);
 
-                $('.result').prepend('<p>' + str + '</p>');
+                $('.result').prepend('<pre>' + str + '</pre>');
             });
         });
 
