@@ -26,4 +26,4 @@ def handle_uploaded_file(filename):
     print(filename)
     dataset = pydicom.filereader.dcmread(filename)
     
-    return dataset.to_json()
+    return dataset.to_json(bulk_data_element_handler=lambda elem: "IGNORED")
